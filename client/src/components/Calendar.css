@@ -1,0 +1,214 @@
+/* Calendar - Brutalist Design System */
+.calendar {
+    background: #FFFFFF;
+    border: 3px solid #6BA353;
+    border-radius: 0;
+    padding: 24px;
+    box-shadow: 6px 6px 0 rgba(107, 163, 83, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.calendar:hover {
+    transform: translateY(-2px);
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.calendar-title {
+    font-family: 'Fredoka', 'Space Grotesk', sans-serif;
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: #1a1a1a;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+.calendar-nav {
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    background: #FFFFFF;
+    border: 3px solid #1a1a1a;
+    color: #1a1a1a;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 4px 4px 0 #1a1a1a;
+}
+
+.calendar-nav:hover {
+    background: #F5E6D3;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #1a1a1a;
+    color: #6BA353;
+}
+
+.calendar-nav:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 #1a1a1a;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.calendar-weekday {
+    text-align: center;
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: #4a4a4a;
+    padding: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    background: #F5F1E8;
+    border: 2px solid #1a1a1a;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.calendar-day.empty {
+    background: transparent;
+    border: none;
+    cursor: default;
+}
+
+.calendar-day:not(.empty):not(.past):hover {
+    background: #F5E6D3;
+    border-color: #6BA353;
+    border-width: 3px;
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 rgba(107, 163, 83, 0.3);
+}
+
+.calendar-day.today {
+    border-color: #6BA353;
+    border-width: 3px;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 0 rgba(107, 163, 83, 0.4);
+}
+
+.calendar-day.selected {
+    background: #6BA353;
+    border-color: #1a1a1a;
+    border-width: 3px;
+    box-shadow: 4px 4px 0 #1a1a1a;
+}
+
+.calendar-day.selected .day-number {
+    color: #FFFFFF;
+    font-weight: var(--font-bold);
+}
+
+.calendar-day.past {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #F5F1E8;
+}
+
+.calendar-day.past:hover {
+    background: #F5F1E8;
+    border-color: #1a1a1a;
+    border-width: 2px;
+    transform: none;
+    box-shadow: none;
+}
+
+.day-number {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: #1a1a1a;
+}
+
+.calendar-day.has-bookings {
+    background: #E8F5E9;
+}
+
+.calendar-day.has-bookings .day-number {
+    color: #6BA353;
+    font-weight: var(--font-bold);
+}
+
+.booking-indicator {
+    position: absolute;
+    bottom: 6px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6BA353;
+    border: 1px solid #1a1a1a;
+    box-shadow: 0 0 0 2px #FFFFFF;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+    .calendar {
+        padding: 16px;
+    }
+
+    .calendar-header {
+        margin-bottom: 16px;
+    }
+
+    .calendar-title {
+        font-size: var(--text-base);
+    }
+
+    .calendar-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+        box-shadow: 3px 3px 0 #1a1a1a;
+    }
+
+    .calendar-nav:hover {
+        box-shadow: 4px 4px 0 #1a1a1a;
+    }
+
+    .calendar-weekday {
+        font-size: var(--text-xs);
+        padding: 4px;
+    }
+
+    .calendar-days {
+        gap: 6px;
+    }
+
+    .day-number {
+        font-size: var(--text-xs);
+    }
+
+    .booking-indicator {
+        width: 4px;
+        height: 4px;
+        bottom: 4px;
+    }
+}

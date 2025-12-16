@@ -1,0 +1,59 @@
+/* === NEW BADGE THEME === */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 4px;
+    /* Slightly rounded */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'Space Grotesk', sans-serif;
+    border: 2px solid transparent;
+}
+
+.badge-default {
+    background: #E5E7EB;
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.badge-confirmed,
+.badge-success {
+    background: #E8F5E1;
+    color: #588A42;
+    border-color: #6BA353;
+}
+
+.badge-cancelled,
+.badge-error {
+    background: #FFE5E5;
+    color: #B91C1C;
+    border-color: #EF4444;
+}
+
+.badge-available {
+    background: #E8F5E1;
+    color: #588A42;
+    border-color: #6BA353;
+}
+
+.badge-conflict {
+    background: #FFE5E5;
+    color: #B91C1C;
+    border-color: #EF4444;
+}
+
+.badge-tentative,
+.badge-warning {
+    background: #FFF4A3;
+    color: #B45309;
+    border-color: #F59E0B;
+}
+
+.badge-primary {
+    background: #E0F2FE;
+    color: #0369A1;
+    border-color: #4A90E2;
+}

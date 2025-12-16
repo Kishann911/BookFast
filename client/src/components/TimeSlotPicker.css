@@ -1,0 +1,120 @@
+.time-slot-picker {
+    margin-top: 24px;
+}
+
+.time-slot-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--gray-100);
+    margin-bottom: 16px;
+}
+
+.time-slot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.time-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.time-slot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(29, 233, 182, 0.1), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.time-slot:hover::before {
+    opacity: 1;
+}
+
+.time-slot:not(.booked):hover {
+    background: rgba(29, 233, 182, 0.05);
+    border-color: rgba(29, 233, 182, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 233, 182, 0.2);
+}
+
+.time-slot.selected {
+    background: rgba(29, 233, 182, 0.15);
+    border-color: var(--electric-cyan);
+    box-shadow: 0 0 20px rgba(29, 233, 182, 0.3);
+}
+
+.time-slot.booked {
+    background: rgba(239, 68, 68, 0.05);
+    border-color: rgba(239, 68, 68, 0.2);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.slot-time {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--gray-100);
+    font-family: var(--font-mono);
+}
+
+.time-slot.booked .slot-time {
+    color: var(--gray-400);
+}
+
+.slot-separator {
+    color: var(--gray-500);
+    margin: 2px 0;
+}
+
+.slot-status {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--conflict);
+    background: rgba(239, 68, 68, 0.1);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+}
+
+.no-slots-message {
+    text-align: center;
+    color: var(--gray-400);
+    font-size: var(--text-sm);
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-lg);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+    .time-slot-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 8px;
+    }
+
+    .time-slot {
+        padding: 12px;
+    }
+
+    .slot-time {
+        font-size: var(--text-sm);
+    }
+}

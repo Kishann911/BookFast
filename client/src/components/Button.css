@@ -1,0 +1,115 @@
+/* Button Base Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    font-family: var(--font-primary);
+    font-weight: var(--font-semibold);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Button Sizes */
+.btn-sm {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--text-sm);
+}
+
+.btn-md {
+    padding: 0.75rem 1.5rem;
+    font-size: var(--text-base);
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: var(--text-lg);
+}
+
+/* Button Variants */
+.btn-primary {
+    background: var(--electric-cyan);
+    color: var(--midnight-blue);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #1BD9A6;
+    box-shadow: var(--shadow-glow-cyan);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--electric-cyan);
+    border: 2px solid var(--electric-cyan);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: rgba(29, 233, 182, 0.1);
+    box-shadow: var(--shadow-glow-cyan);
+}
+
+.btn-danger {
+    background: var(--conflict);
+    color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #DC2626;
+    box-shadow: var(--shadow-glow-conflict);
+    transform: translateY(-2px);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--gray-300);
+}
+
+.btn-ghost:hover:not(:disabled) {
+    background: var(--card-bg-hover);
+    color: var(--gray-50);
+}
+
+.btn-success {
+    background: var(--available);
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #16A34A;
+    box-shadow: var(--shadow-glow-available);
+    transform: translateY(-2px);
+}
+
+/* Ripple Effect */
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width var(--transition-normal), height var(--transition-normal);
+}
+
+.btn:active::after:not(:disabled) {
+    width: 300px;
+    height: 300px;
+}
