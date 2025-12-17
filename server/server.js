@@ -17,7 +17,9 @@ import adminRoutes from './routes/admin.js';
 import dashboardRoutes from './routes/dashboard.js';
 
 // Connect to MongoDB
-connectDB();
+if (process.env.NODE_ENV !== 'test') {
+    connectDB();
+}
 
 // Initialize Express app
 const app = express();
@@ -113,15 +115,17 @@ app.use((req, res) => {
 
 // Start server
 const PORT = process.env.PORT || 5001;
-httpServer.listen(PORT, () => {
-    console.log(`\n🚀 BookFast Server running on port ${PORT}`);
-    console.log(`📡 Socket.IO ready for real-time connections`);
-    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`\nAPI Endpoints:`);
-    console.log(`  - http://localhost:${PORT}/api/auth`);
-    console.log(`  - http://localhost:${PORT}/api/resources`);
-    console.log(`  - http://localhost:${PORT}/api/bookings\n`);
-});
+if (process.env.NODE_ENV !== 'test') {
+    httpServer.listen(PORT, () => {
+        console.log(`\n🚀 BookFast Server running on port ${PORT}`);
+        console.log(`📡 Socket.IO ready for real-time connections`);
+        console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`\nAPI Endpoints:`);
+        console.log(`  - http://localhost:${PORT}/api/auth`);
+        console.log(`  - http://localhost:${PORT}/api/resources`);
+        console.log(`  - http://localhost:${PORT}/api/bookings\n`);
+    });
+}
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {

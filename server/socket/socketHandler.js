@@ -2,20 +2,22 @@
 // Map structure: resourceId -> Map(slotKey -> { userId, expiresAt })
 const slotLocks = new Map();
 
-// Auto-cleanup expired locks every 10 seconds
-setInterval(() => {
-    const now = Date.now();
-    for (const [resourceId, slots] of slotLocks.entries()) {
-        for (const [slotKey, lock] of slots.entries()) {
-            if (lock.expiresAt < now) {
-                slots.delete(slotKey);
+// Auto-cleanup expired locks every 10 seconds (disable in tests to allow Jest to exit)
+if (process.env.NODE_ENV !== 'test') {
+    setInterval(() => {
+        const now = Date.now();
+        for (const [resourceId, slots] of slotLocks.entries()) {
+            for (const [slotKey, lock] of slots.entries()) {
+                if (lock.expiresAt < now) {
+                    slots.delete(slotKey);
+                }
+            }
+            if (slots.size === 0) {
+                slotLocks.delete(resourceId);
             }
         }
-        if (slots.size === 0) {
-            slotLocks.delete(resourceId);
-        }
-    }
-}, 10000);
+    }, 10000);
+}
 
 const generateSlotKey = (startTime, endTime) => {
     return `${startTime}_${endTime}`;

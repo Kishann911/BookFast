@@ -1,11 +1,12 @@
 .time-slot-picker {
     margin-top: 24px;
+    color: black;
 }
 
 .time-slot-title {
     font-size: var(--text-lg);
     font-weight: var(--font-semibold);
-    color: var(--gray-100);
+    color: black;
     margin-bottom: 16px;
 }
 
@@ -68,7 +69,7 @@
 .slot-time {
     font-size: var(--text-base);
     font-weight: var(--font-semibold);
-    color: var(--gray-100);
+    color: black;
     font-family: var(--font-mono);
 }
 
@@ -77,7 +78,7 @@
 }
 
 .slot-separator {
-    color: var(--gray-500);
+    color: black;
     margin: 2px 0;
 }
 
