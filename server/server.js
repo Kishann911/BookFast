@@ -120,6 +120,7 @@ if (process.env.NODE_ENV !== 'test') {
         console.log(`\n🚀 BookFast Server running on port ${PORT}`);
         console.log(`📡 Socket.IO ready for real-time connections`);
         console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`🔗 Allowed CORS Origin: ${process.env.CLIENT_URL || 'http://localhost:5173'}`);
         console.log(`\nAPI Endpoints:`);
         console.log(`  - http://localhost:${PORT}/api/auth`);
         console.log(`  - http://localhost:${PORT}/api/resources`);
