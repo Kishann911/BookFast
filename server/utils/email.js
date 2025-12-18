@@ -185,7 +185,7 @@ const createTransporter = () => {
     // Use different transport based on environment
     if (process.env.NODE_ENV === 'production') {
         // Production: Use real SMTP service (e.g., SendGrid, Mailgun, AWS SES)
-        return nodemailer.createTransporter({
+        return nodemailer.createTransport({
             host: process.env.SMTP_HOST,
             port: process.env.SMTP_PORT || 587,
             secure: false,
@@ -197,7 +197,7 @@ const createTransporter = () => {
     } else {
         // Development: Use Ethereal (fake SMTP for testing)
         // In production, replace with real SMTP credentials
-        return nodemailer.createTransporter({
+        return nodemailer.createTransport({
             host: process.env.SMTP_HOST || 'smtp.ethereal.email',
             port: process.env.SMTP_PORT || 587,
             secure: false,
