@@ -20,10 +20,12 @@ export const SocketProvider = ({ children }) => {
     useEffect(() => {
         // Initialize socket connection
         const newSocket = io(SOCKET_URL, {
-            transports: ['websocket', 'polling'],
+            transports: ['polling', 'websocket'], // Try polling first for better firewall traversing
             reconnection: true,
             reconnectionDelay: 1000,
-            reconnectionAttempts: 5
+            reconnectionAttempts: 5,
+            withCredentials: true,
+            path: '/socket.io/'
         });
 
         newSocket.on('connect', () => {

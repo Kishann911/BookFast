@@ -25,13 +25,41 @@ if (process.env.NODE_ENV !== 'test') {
 const app = express();
 const httpServer = createServer(app);
 
+// Define allowed origins
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://book-fast.vercel.app'
+];
+
+if (process.env.CLIENT_URL) {
+    allowedOrigins.push(process.env.CLIENT_URL);
+    allowedOrigins.push(process.env.CLIENT_URL.replace(/\/$/, ''));
+}
+
+// Remove duplicates
+const uniqueOrigins = [...new Set(allowedOrigins)];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        if (uniqueOrigins.indexOf(origin) !== -1 || uniqueOrigins.some(o => origin.startsWith(o))) {
+            callback(null, true);
+        } else {
+            console.log('BLOCKED BY CORS:', origin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+};
+
 // Initialize Socket.IO
 const io = new Server(httpServer, {
-    cors: {
-        origin: process.env.CLIENT_URL || 'http://localhost:5173',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true
-    }
+    cors: corsOptions
 });
 
 // Setup Socket.IO handlers
@@ -45,10 +73,8 @@ import { initializeSocketIO } from './controllers/bookingController.js';
 initializeSocketIO(io);
 
 // Middleware
-app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
-    credentials: true
-}));
+app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -120,7 +146,7 @@ if (process.env.NODE_ENV !== 'test') {
         console.log(`\n🚀 BookFast Server running on port ${PORT}`);
         console.log(`📡 Socket.IO ready for real-time connections`);
         console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-        console.log(`🔗 Allowed CORS Origin: ${process.env.CLIENT_URL || 'http://localhost:5173'}`);
+        console.log(`🔗 Allowed CORS Origins: ${uniqueOrigins.join(', ')}`);
         console.log(`\nAPI Endpoints:`);
         console.log(`  - http://localhost:${PORT}/api/auth`);
         console.log(`  - http://localhost:${PORT}/api/resources`);
