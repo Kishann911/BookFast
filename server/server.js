@@ -42,7 +42,12 @@ const corsOptions = {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
 
-        if (uniqueOrigins.indexOf(origin) !== -1 || uniqueOrigins.some(o => origin.startsWith(o))) {
+        // Check for specific allowed origins or dynamic Vercel preview URLs
+        if (
+            uniqueOrigins.indexOf(origin) !== -1 ||
+            /^https:\/\/book-fast-.*\.vercel\.app$/.test(origin) ||
+            process.env.NODE_ENV === 'development' // Allow all in dev just in case, though uniqueOrigins handles localhost
+        ) {
             callback(null, true);
         } else {
             console.log('BLOCKED BY CORS:', origin);
