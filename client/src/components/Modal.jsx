@@ -39,9 +39,16 @@ const Modal = ({
             <div
                 className={`modal modal-${size} ${className}`}
                 onClick={(e) => e.stopPropagation()}
+                aria-modal="true"
+                role="dialog"
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
             >
+                <div id="modal-description" style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
+                    {title ? `Modal for ${title}` : 'Modal window'}
+                </div>
                 <div className="modal-header">
-                    {title && <h3 className="modal-title">{title}</h3>}
+                    {title && <h3 id="modal-title" className="modal-title">{title}</h3>}
                     <button className="modal-close" onClick={onClose} aria-label="Close">
                         ×
                     </button>

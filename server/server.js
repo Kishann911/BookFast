@@ -26,16 +26,13 @@ const app = express();
 const httpServer = createServer(app);
 
 // Define allowed origins
+// Define allowed origins
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
-    'https://book-fast.vercel.app'
+    'https://book-fast.vercel.app',
+    'https://book-fast.vercel.app/' // Explicitly allow trailing slash just in case
 ];
-
-if (process.env.CLIENT_URL) {
-    allowedOrigins.push(process.env.CLIENT_URL);
-    allowedOrigins.push(process.env.CLIENT_URL.replace(/\/$/, ''));
-}
 
 // Remove duplicates
 const uniqueOrigins = [...new Set(allowedOrigins)];
