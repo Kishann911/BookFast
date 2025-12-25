@@ -8,7 +8,7 @@ const connectDB = async () => {
     });
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
-    
+
     // Handle connection events
     mongoose.connection.on('error', (err) => {
       console.error(`MongoDB connection error: ${err}`);
@@ -20,7 +20,9 @@ const connectDB = async () => {
 
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    process.exit(1);
+    // Do not exit process, allow retry logic or server to stay up
+    console.log('Retrying MongoDB connection in 5 seconds...');
+    setTimeout(connectDB, 5000);
   }
 };
 

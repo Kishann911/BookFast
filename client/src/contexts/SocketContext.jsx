@@ -22,8 +22,9 @@ export const SocketProvider = ({ children }) => {
         const newSocket = io(SOCKET_URL, {
             transports: ['polling', 'websocket'], // Try polling first for better firewall traversing
             reconnection: true,
-            reconnectionDelay: 1000,
-            reconnectionAttempts: 5,
+            reconnectionDelay: 5000, // Increase delay to prevent 429 errors
+            reconnectionDelayMax: 10000,
+            reconnectionAttempts: 10,
             withCredentials: true,
             path: '/socket.io/'
         });

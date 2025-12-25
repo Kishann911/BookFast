@@ -136,19 +136,26 @@ app.use((req, res) => {
     res.status(404).json({ message: 'Route not found' });
 });
 
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+    process.exit(1);
+});
+
 // Start server
 const PORT = process.env.PORT || 5001;
 if (process.env.NODE_ENV !== 'test') {
-    httpServer.listen(PORT, () => {
-        console.log(`\n🚀 BookFast Server running on port ${PORT}`);
-        console.log(`📡 Socket.IO ready for real-time connections`);
-        console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-        console.log(`🔗 Allowed CORS Origins: ${uniqueOrigins.join(', ')}`);
-        console.log(`\nAPI Endpoints:`);
-        console.log(`  - http://localhost:${PORT}/api/auth`);
-        console.log(`  - http://localhost:${PORT}/api/resources`);
-        console.log(`  - http://localhost:${PORT}/api/bookings\n`);
-    });
+    try {
+        httpServer.listen(PORT, () => {
+            console.log(`\n🚀 BookFast Server running on port ${PORT}`);
+            console.log(`📡 Socket.IO ready for real-time connections`);
+            console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+            console.log(`🔗 Allowed CORS Origins: ${uniqueOrigins.join(', ')}`);
+        });
+    } catch (error) {
+        console.error('Failed to start server:', error);
+        process.exit(1);
+    }
 }
 
 // Handle unhandled promise rejections
